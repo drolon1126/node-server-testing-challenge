@@ -4,7 +4,7 @@ const db = require('../data/dbConfig.js');
 
 describe('movieRouter.js', () => {
   beforeEach(async () => {
-    await db('users').truncate();
+    await db('movies').truncate();
   });
   describe('POST /movies', () => {
     it('should return json with a 201 http status code', () => {
