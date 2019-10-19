@@ -2,10 +2,11 @@ const db = require('../../data/dbConfig.js');
 
 const Movies = require('./movieModel.js');
 
+beforeEach(async () => {
+  await db('movies').truncate();
+});
+
 describe(' movieModel', () => {
-  beforeEach(async () => {
-    await db('movies').truncate();
-  });
 
   describe('add()', () => {
     it('should add movies to db', async () => {
@@ -36,13 +37,13 @@ describe(' movieModel', () => {
       expect(movies).toHaveLength(1);
 
       await Movies.remove(1);
-      let movies = await db('movies');
+      movies = await db('movies');
       expect(movies).toHaveLength(0);
     });
-    it('should delete the provided hobbit from db', async () => {
+    it('should delete the provided movie from db', async () => {
       await Movies.add({ title:"test", overview:"test overview" });
 
-      let movie = Movies.remove(1);
+      let movie = await Movies.remove(1);
       expect(movie.title).toBe('test');
       expect(movie.overview).toBe('test overview');
     

@@ -17,7 +17,7 @@ function findById(id) {
     .first();
 }
 
-function add(scheme) {
+function add(movie) {
   return db('movies')
     .insert(movie)
     .then(ids => {
@@ -27,8 +27,9 @@ function add(scheme) {
 
 
 function remove(id) {
-  let movie = findById(id);
-  return db('movie')
+  let movie = {}; 
+  findById(id).then(res=>{movie=res});
+  return db('movies')
     .where({id})
     .del()
     .then(res=>{
